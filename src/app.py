@@ -22,11 +22,6 @@ if os.getenv("HF_SPACE"):
     if ANTHROPIC_API_KEY:
         os.environ["ANTHROPIC_API_KEY"] = ANTHROPIC_API_KEY
 
-# セキュリティ設定
-st.set_option('server.enableCORS', False)
-st.set_option('server.enableXsrfProtection', True)
-st.set_option('server.enableWebsocketCompression', True)
-
 def init_session_state():
     """セッション状態の初期化"""
     if 'builder' not in st.session_state:

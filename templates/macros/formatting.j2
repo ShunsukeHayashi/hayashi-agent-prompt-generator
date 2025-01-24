@@ -1,38 +1,43 @@
-{# 出力フォーマット用マクロ #}
+{# フォーマット用マクロ #}
 
-{% macro format_header(text) %}
+{% macro header(title, description='', version='') %}
 ◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢
-{{ text }}
+# {{ title }}
+{% if version %}Version: {{ version }}{% endif %}
+{% if description %}{{ description }}{% endif %}
 ◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢
 {% endmacro %}
 
-{% macro format_section(title, content) %}
+{% macro section(title) %}
 ## {{ title }}
+{% endmacro %}
+
+{% macro subsection(title) %}
+### {{ title }}
+{% endmacro %}
+
+{% macro code_block(content, language='') %}
+```{% if language %}{{ language }}{% endif %}
 {{ content }}
-{% endmacro %}
-
-{% macro format_list(items) %}
-{% for item in items %}
-- {{ item }}
-{% endfor %}
-{% endmacro %}
-
-{% macro format_code(code) %}
-```
-{{ code }}
 ```
 {% endmacro %}
 
-{% macro format_error(type, description, solution) %}
-❌ エラー: {{ type }}
-説明: {{ description }}
-対処: {{ solution }}
+{% macro error(message) %}
+❌ Error: {{ message }}
 {% endmacro %}
 
-{% macro format_warning(message) %}
-⚠️ 警告: {{ message }}
+{% macro warning(message) %}
+⚠️ Warning: {{ message }}
 {% endmacro %}
 
-{% macro format_success(message) %}
-✅ 成功: {{ message }}
+{% macro success(message) %}
+✅ Success: {{ message }}
+{% endmacro %}
+
+{% macro info(message) %}
+ℹ️ Info: {{ message }}
+{% endmacro %}
+
+{% macro divider() %}
+◤◢◤◢◤◢◤◢◤◢◤◢◤◢
 {% endmacro %} 

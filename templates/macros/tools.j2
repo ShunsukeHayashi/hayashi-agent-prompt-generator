@@ -40,4 +40,47 @@
 {% for param in tool.parameters %}
 - {{ param.name }}: {{ param.description }}
 {% endfor %}
+{% endmacro %}
+
+{# ツール用マクロ #}
+
+{% macro render_tool_definition(tool) %}
+Name: {{ tool.name }}
+Description: {{ tool.description }}
+{% if tool.required_params %}
+Required Parameters:
+{% for param in tool.required_params %}
+- {{ param }}
+{% endfor %}
+{% endif %}
+{% endmacro %}
+
+{% macro render_tool_list(tools) %}
+Available Tools:
+{% for tool in tools %}
+{{ render_tool_definition(tool) }}
+{% endfor %}
+{% endmacro %}
+
+{% macro render_tool_error(error_info) %}
+❌ Tool Error:
+Error: {{ error_info.message }}
+Context: {{ error_info.context }}
+Solution: {{ error_info.solution }}
+{% endmacro %}
+
+{% macro render_tool_success(result) %}
+✅ Tool Success:
+{{ result }}
+{% endmacro %}
+
+{% macro render_tool_validation(params, required) %}
+Tool Validation:
+{% for param in required %}
+{% if param not in params %}
+❌ Missing required parameter: {{ param }}
+{% else %}
+✅ Parameter present: {{ param }}
+{% endif %}
+{% endfor %}
 {% endmacro %} 

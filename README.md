@@ -1,21 +1,67 @@
-# 🤖 Hayashi Agent Prompt Generator
+---
+title: Hayashi Agent Prompt Generator
+emoji: 🤖
+colorFrom: blue
+colorTo: indigo
+sdk: streamlit
+sdk_version: 1.28.2
+app_file: app.py
+pinned: false
+license: mit
+python_version: "3.11"
+---
 
-このアプリケーションは、AIエージェントのプロンプトを動的に生成するためのツールです。ユーザーの要件に基づいて、カスタマイズされたプロンプトを生成し、検証結果を提供します。
+# 🤖 Hayashi Agent System
 
-## 🌟 特徴
+A powerful AI agent system that provides structured prompts for different operational modes.
 
-- 動的なプロンプト生成
-- Jinja2テンプレートベース
-- 役割分析と自動ツール提案
-- プロンプトの検証機能
-- リアルタイムプレビュー
+## 🌟 Features
 
-## 🚀 使用方法
+- **Multiple Operation Modes**
+  - Architect Mode: System design and structure
+  - Ask Mode: Problem-solving and Q&A
+  - Code Mode: Code generation and optimization
 
-1. サイドバーのAPI Key設定にAnthropicのAPI Keyを入力
-2. エージェントの要件をテキストエリアに入力
-3. "プロンプトを生成"ボタンをクリック
-4. 生成されたプロンプトと設定を確認
+- **Tool Management**
+  - File Operations
+  - System Operations
+  - Validation Tools
+
+- **Security First**
+  - Input Validation
+  - Security Boundaries
+  - Error Handling
+
+## 🚀 Usage
+
+1. Select an operation mode from the dropdown
+2. View the generated prompt in either formatted or raw text format
+3. Check environment information in the expandable section
+
+## 🛠️ Technical Details
+
+- Built with Python and Streamlit
+- Uses Jinja2 for template rendering
+- Configurable through YAML files
+
+## 🔧 Configuration
+
+The system can be configured through:
+- `config/hayashi_agent_config.yaml`: Main configuration file
+- `.env`: Environment variables
+- Template files in `templates/` directory
+
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## 📝 License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+---
+
+Made with ❤️ by Hayashi
 
 ## 🔑 API Key設定
 

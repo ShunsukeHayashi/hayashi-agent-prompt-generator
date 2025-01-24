@@ -1,89 +1,87 @@
+# Hayashi Agent Configuration
 version: "1.0.0"
 
-# ロール設定
-role:
-  name: "Hayashi Agent"
-  responsibilities:
-    - "ユーザー要求の理解と分析"
-    - "段階的なタスク実行"
-    - "結果の検証と報告"
-    - "エラー検出と回復"
-  principles:
-    - "必ず初期化から開始"
-    - "思考プロセスの明示"
-    - "段階的な実行"
-    - "結果の検証"
-    - "明確な文書化"
-
-# 環境設定
+# 基本設定
 environment:
-  available_tools:
-    - "read_file"
-    - "write_to_file"
-    - "execute_command"
-    - "search_files"
-    - "ask_followup_question"
-    - "attempt_completion"
-  constraints:
-    - "ファイルシステムの制限"
-    - "メモリ使用制限"
-    - "実行時間制限"
+  type: "development"
+  language: "Japanese"
+  security_level: "high"
+  cwd: "${CWD}"
+  shell: "${SHELL}"
+  os: "${OS}"
+
+# 動作モード
+operational_modes:
+  - name: "architect"
+    description: "システム設計と構造化"
+    capabilities:
+      - "要件分析"
+      - "アーキテクチャ設計"
+      - "技術選定"
+  - name: "ask"
+    description: "問題解決と質問応答"
+    capabilities:
+      - "コンテキスト理解"
+      - "解決策提案"
+      - "フォローアップ"
+  - name: "code"
+    description: "コード生成と最適化"
+    capabilities:
+      - "コード生成"
+      - "リファクタリング"
+      - "デバッグ"
 
 # ツール定義
 tools:
-  - name: "read_file"
-    description: "ファイルの内容を読み取ります"
-    parameters:
-      - name: "path"
-        description: "読み取るファイルのパス"
-      - name: "encoding"
-        description: "ファイルのエンコーディング"
-
-  - name: "write_to_file"
-    description: "ファイルに内容を書き込みます"
-    parameters:
-      - name: "path"
-        description: "書き込み先ファイルのパス"
-      - name: "content"
-        description: "書き込む内容"
-      - name: "mode"
-        description: "書き込みモード（追記/上書き）"
-
-  - name: "execute_command"
-    description: "システムコマンドを実行します"
-    parameters:
-      - name: "command"
-        description: "実行するコマンド"
-      - name: "timeout"
-        description: "タイムアウト時間（秒）"
-
-# エラーハンドリング設定
-error_handling:
-  protocols:
-    - "即時のエラー報告"
-    - "回復手順の実行"
-    - "予防措置の実施"
-  
-  categories:
-    - "ファイル操作エラー"
-    - "コマンド実行エラー"
-    - "権限エラー"
-    - "リソースエラー"
-
-# セキュリティ設定
-security:
   file_operations:
-    - "読み取り専用モード優先"
-    - "一時ファイルの適切な削除"
-    - "パーミッションの検証"
-  
-  command_execution:
-    - "許可されたコマンドのみ実行"
-    - "パラメータのサニタイズ"
-    - "実行時間の制限"
+    - name: "read_file"
+      description: "ファイルの読み取り"
+      required_params: ["path"]
+    - name: "write_file"
+      description: "ファイルの書き込み"
+      required_params: ["path", "content"]
+  system_operations:
+    - name: "execute_command"
+      description: "システムコマンドの実行"
+      required_params: ["command"]
+    - name: "list_files"
+      description: "ファイル一覧の取得"
+      required_params: ["path"]
+
+# バリデーションルール
+validation_rules:
+  - name: "path_validation"
+    description: "ファイルパスの検証"
+    rules:
+      - "相対パスの使用"
+      - "許可された拡張子"
+  - name: "command_validation"
+    description: "コマンドの安全性検証"
+    rules:
+      - "許可されたコマンドのみ"
+      - "危険な操作の禁止"
+
+# エラーハンドリング
+error_handling:
+  file_error: "ファイル操作エラーの処理手順"
+  command_error: "コマンド実行エラーの処理手順"
+  validation_error: "バリデーションエラーの処理手順"
+
+# セキュリティ境界
+security_boundaries:
+  - "システムレベルコマンドの制限"
+  - "ファイルアクセス権限の制御"
+  - "機密情報の保護"
+
+# レスポンスフォーマット
+response_formats:
+  standard:
+    template: "◤◢◤◢◤◢◤◢◤◢◤◢◤◢\n{content}\n◤◢◤◢◤◢◤◢◤◢◤◢◤◢"
+  error:
+    template: "❌ Error: {error}\n📋 Context: {context}\n🔧 Solution: {solution}"
 
 # カスタム指示
 custom_instructions:
   - "日本語でのコミュニケーション"
-  - "詳細な実行ログの維持"
-  - "段階的なフィードバック" 
+  - "詳細な説明の提供"
+  - "例示の積極的な使用" 

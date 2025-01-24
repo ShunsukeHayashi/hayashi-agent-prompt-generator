@@ -42,4 +42,57 @@
 {{ fmt.format_error('リソースエラー', resource.name + 'が利用できません', resource.solution) }}
 {% endif %}
 {% endfor %}
+{% endmacro %}
+
+{% macro validate_path(path) %}
+{% if path.startswith('/') %}
+❌ Absolute paths are not allowed. Use relative paths.
+{% endif %}
+{% if '..' in path %}
+❌ Parent directory references are not allowed.
+{% endif %}
+{% endmacro %}
+
+{% macro validate_command(command) %}
+{% set dangerous_commands = ['rm -rf', 'sudo', 'chmod -R', 'chown -R'] %}
+{% for dangerous in dangerous_commands %}
+{% if dangerous in command %}
+❌ Dangerous command detected: {{ dangerous }}
+{% endif %}
+{% endfor %}
+{% endmacro %}
+
+{% macro validate_file_extension(filename, allowed_extensions) %}
+{% set ext = filename.split('.')[-1] %}
+{% if ext not in allowed_extensions %}
+❌ Invalid file extension: {{ ext }}. Allowed: {{ allowed_extensions | join(', ') }}
+{% endif %}
+{% endmacro %}
+
+{% macro validate_required_params(params, required) %}
+{% for req in required %}
+{% if req not in params %}
+❌ Missing required parameter: {{ req }}
+{% endif %}
+{% endfor %}
+{% endmacro %}
+
+{% macro validate_security(content) %}
+{% set sensitive_patterns = ['password', 'secret', 'key', 'token', 'credential'] %}
+{% for pattern in sensitive_patterns %}
+{% if pattern in content.lower() %}
+❌ Sensitive information detected: {{ pattern }}
+{% endif %}
+{% endfor %}
+{% endmacro %}
+
+{% macro validate_environment(env) %}
+Required environment variables:
+{% for var in ['CWD', 'SHELL', 'OS'] %}
+{% if var not in env %}
+❌ Missing environment variable: {{ var }}
+{% else %}
+✅ {{ var }} is set
+{% endif %}
+{% endfor %}
 {% endmacro %} 
