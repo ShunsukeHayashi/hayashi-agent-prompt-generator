@@ -1,0 +1,107 @@
+tools:
+  - name: task_manager
+    description: "プロジェクトタスクの管理を行います"
+    parameters:
+      - name: "action"
+        description: "実行するアクション（create/update/delete/list）"
+      - name: "task_id"
+        description: "タスクID（更新/削除時に必要）"
+      - name: "title"
+        description: "タスクのタイトル"
+      - name: "description"
+        description: "タスクの詳細説明"
+      - name: "priority"
+        description: "優先度（high/medium/low）"
+      - name: "assignee"
+        description: "担当者"
+    usage_format: |
+      <task_manager>
+      <action>create</action>
+      <title>新機能の実装</title>
+      <description>ログイン機能の実装</description>
+      <priority>high</priority>
+      <assignee>開発者A</assignee>
+      </task_manager>
+
+  - name: code_reviewer
+    description: "コードレビューとベストプラクティスの提案を行います"
+    parameters:
+      - name: "file_path"
+        description: "レビュー対象のファイルパス"
+      - name: "review_type"
+        description: "レビューの種類（security/performance/style）"
+      - name: "severity"
+        description: "重要度のフィルタ（high/medium/low）"
+    usage_format: |
+      <code_reviewer>
+      <file_path>src/main.py</file_path>
+      <review_type>security</review_type>
+      <severity>high</severity>
+      </code_reviewer>
+
+  - name: doc_generator
+    description: "技術文書とAPIドキュメントの生成を支援します"
+    parameters:
+      - name: "doc_type"
+        description: "ドキュメントの種類（api/technical/comment）"
+      - name: "target_path"
+        description: "対象のファイルまたはディレクトリパス"
+      - name: "output_format"
+        description: "出力形式（markdown/html/pdf）"
+    usage_format: |
+      <doc_generator>
+      <doc_type>api</doc_type>
+      <target_path>src/api/</target_path>
+      <output_format>markdown</output_format>
+      </doc_generator>
+
+  - name: team_coordinator
+    description: "チーム間の連携とコミュニケーションを支援します"
+    parameters:
+      - name: "action"
+        description: "実行するアクション（assign/report/communicate）"
+      - name: "team"
+        description: "対象チーム"
+      - name: "message"
+        description: "伝達内容"
+      - name: "priority"
+        description: "優先度（high/medium/low）"
+    usage_format: |
+      <team_coordinator>
+      <action>assign</action>
+      <team>開発チームA</team>
+      <message>新機能の実装タスクの割り当て</message>
+      <priority>high</priority>
+      </team_coordinator>
+
+  - name: performance_monitor
+    description: "システムのパフォーマンスを監視し最適化を提案します"
+    parameters:
+      - name: "target"
+        description: "監視対象（code/database/api）"
+      - name: "metric"
+        description: "測定する指標（speed/memory/cpu）"
+      - name: "threshold"
+        description: "警告のしきい値"
+    usage_format: |
+      <performance_monitor>
+      <target>api</target>
+      <metric>speed</metric>
+      <threshold>200ms</threshold>
+      </performance_monitor>
+
+  - name: security_validator
+    description: "セキュリティチェックと脆弱性の検出を行います"
+    parameters:
+      - name: "scan_type"
+        description: "スキャンの種類（code/dependency/config）"
+      - name: "target_path"
+        description: "検査対象のパス"
+      - name: "severity"
+        description: "重要度のフィルタ（critical/high/medium/low）"
+    usage_format: |
+      <security_validator>
+      <scan_type>code</scan_type>
+      <target_path>src/</target_path>
+      <severity>critical</severity>
+      </security_validator> 

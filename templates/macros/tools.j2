@@ -1,0 +1,43 @@
+{# ツール関連マクロ #}
+
+{% macro format_tool_call(tool_name, parameters) %}
+<{{ tool_name }}>
+{% for key, value in parameters.items() %}
+<{{ key }}>{{ value }}</{{ key }}>
+{% endfor %}
+</{{ tool_name }}>
+{% endmacro %}
+
+{% macro format_tool_result(result) %}
+実行結果:
+```
+{{ result }}
+```
+{% endmacro %}
+
+{% macro format_tool_error(error) %}
+{{ fmt.format_error('ツールエラー', error.message, error.solution) }}
+{% endmacro %}
+
+{% macro format_tool_list(tools) %}
+利用可能なツール:
+{% for tool in tools %}
+- {{ tool.name }}: {{ tool.description }}
+{% endfor %}
+{% endmacro %}
+
+{% macro format_tool_help(tool) %}
+# {{ tool.name }}
+
+説明: {{ tool.description }}
+
+使用方法:
+```
+{{ tool.usage }}
+```
+
+パラメータ:
+{% for param in tool.parameters %}
+- {{ param.name }}: {{ param.description }}
+{% endfor %}
+{% endmacro %} 

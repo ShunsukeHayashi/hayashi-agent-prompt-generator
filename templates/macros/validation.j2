@@ -1,0 +1,45 @@
+{# バリデーション用マクロ #}
+
+{% macro validate_input(input, rules) %}
+{% for rule in rules %}
+{% if not rule.validate(input) %}
+{{ fmt.format_error('入力エラー', rule.message, rule.solution) }}
+{% endif %}
+{% endfor %}
+{% endmacro %}
+
+{% macro validate_environment(environment) %}
+必要な環境変数:
+{% for var in environment.required_vars %}
+{% if var not in environment.current_vars %}
+{{ fmt.format_error('環境エラー', var + 'が設定されていません', '環境変数を設定してください') }}
+{% endif %}
+{% endfor %}
+{% endmacro %}
+
+{% macro validate_dependencies(dependencies) %}
+依存関係チェック:
+{% for dep in dependencies %}
+{% if not dep.is_satisfied() %}
+{{ fmt.format_error('依存関係エラー', dep.name + 'が満たされていません', dep.solution) }}
+{% endif %}
+{% endfor %}
+{% endmacro %}
+
+{% macro validate_permissions(permissions) %}
+権限チェック:
+{% for perm in permissions %}
+{% if not perm.is_granted() %}
+{{ fmt.format_error('権限エラー', perm.name + 'の権限がありません', perm.solution) }}
+{% endif %}
+{% endfor %}
+{% endmacro %}
+
+{% macro validate_resources(resources) %}
+リソースチェック:
+{% for resource in resources %}
+{% if not resource.is_available() %}
+{{ fmt.format_error('リソースエラー', resource.name + 'が利用できません', resource.solution) }}
+{% endif %}
+{% endfor %}
+{% endmacro %} 
